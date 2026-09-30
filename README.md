@@ -1,122 +1,201 @@
 # DC Characteristics of an n-Channel MOSFET
 
-### Two-dimensional device simulation with COMSOL Multiphysics® 6.2 (Semiconductor Module)
-
-**COMSOL 6.2** · **Semiconductor Module** · **Simulation Study** · **MIT License**
-
-A finite-element study of a 2D n-channel silicon MOSFET using Fermi–Dirac statistics, Jain–Roulston band-gap narrowing, and Shockley–Read–Hall (SRH) recombination. The project extracts the **threshold voltage**, evaluates the **linear, non-linear, and saturation output characteristics**, visualizes **channel formation and pinch-off**, and derives **small-signal parameters** including transconductance (g<sub>m</sub>), output conductance (g<sub>d</sub>), and output resistance (r<sub>d</sub>).
-
+### Two-Dimensional Semiconductor Device Simulation Using COMSOL Multiphysics® 6.2
 
 <p align="center">
-  <img src="figures/08_electron_conc_and_potential.png" width="850" alt="Electron concentration and potential at Vg = 4 V for Vd = 5, 1, 0 V">
+
+**COMSOL Multiphysics® 6.2** · **Semiconductor Module** · **Finite-Element Simulation** · **Device Physics**
+
+</p>
+
+<p align="center">
+  <img src="figures/08_electron_conc_and_potential.png"
+       width="850"
+       alt="Electron concentration and potential distribution in the simulated MOSFET">
+</p>
+
+<p align="center">
+  <b>2D MOSFET simulation showing carrier concentration and electrostatic potential under different drain-bias conditions.</b>
 </p>
 
 ---
 
-## Headline Results
+## About This Project
 
-| Quantity | Result |
+Transistors are the fundamental active devices behind modern electronics. They enable **switching, amplification, signal processing, memory, sensing, and computation**, forming the basis of everything from microcontrollers and communication systems to CPUs, GPUs, and embedded hardware.
+
+Among the different transistor families, the **MOSFET (Metal–Oxide–Semiconductor Field-Effect Transistor)** is one of the most important devices in modern semiconductor technology. Its ability to control current through an electric field makes it highly suitable for both digital switching and analog amplification.
+
+This project investigates the **DC characteristics of a two-dimensional n-channel MOSFET** using COMSOL Multiphysics® 6.2 and the Semiconductor Module. Rather than treating the device as a simple circuit element, the study examines how **doping, electric potential, carrier concentration, gate bias, drain bias, channel formation, and pinch-off** interact to produce the observed electrical characteristics.
+
+The simulation extracts the **threshold voltage**, evaluates the **transfer and output characteristics**, visualizes **channel formation and pinch-off**, and derives important **small-signal parameters** such as transconductance, output conductance, output resistance, and intrinsic gain.
+
+---
+
+# 1. Understanding the Transistor
+
+A **transistor** is a semiconductor device used primarily to control the flow of electrical current.
+
+At a fundamental level, a transistor provides a way for a relatively small electrical signal to control a larger current or voltage. This makes transistors useful in two fundamental roles:
+
+- **Switching** — turning current flow ON and OFF
+- **Amplification** — controlling current to produce a larger signal response
+
+A transistor operates through the controlled movement of charge carriers inside a semiconductor. The device structure, doping profile, electric fields, and applied voltages determine how those carriers move.
+
+In modern electronics, billions of transistors can be integrated onto a single semiconductor chip. Understanding transistor physics therefore provides the foundation for understanding **digital logic, processors, memory, analog circuits, embedded systems, and integrated circuits**.
+
+---
+
+# 2. From Transistor to MOSFET
+
+A **MOSFET** is a field-effect transistor in which the current flowing between the **source** and **drain** terminals is controlled primarily by the electric field produced by the **gate**.
+
+A typical MOSFET has four terminals:
+
+| Terminal | Function |
 |---|---|
-| Threshold voltage (simulated, V<sub>D</sub> = 10 mV) | **≈ 1.2 V** |
-| Threshold voltage (analytical, reference model) | **1.18 V** |
-| Saturation current, V<sub>G</sub> = 2 / 3 / 4 V | **≈ 25 / 137–142 / 347–369 µA** |
-| Square-law constant K = 2·I<sub>D,sat</sub>/(V<sub>G</sub>−V<sub>T</sub>)² | **≈ 84 µA/V² (within ~7%)** |
-| Output conductance, non-linear region (V<sub>G</sub> = 4 V) | **91.7 µS (r<sub>d</sub> ≈ 10.9 kΩ)** |
-| Output conductance, saturation (V<sub>G</sub> = 4 V) | **≈ 7 µS (r<sub>d</sub> ≈ 135 kΩ)** |
-| Saturation transconductance g<sub>m</sub> | **≈ 227 µS** |
-| Intrinsic gain g<sub>m</sub>/g<sub>d</sub> | **≈ 30** |
+| **Gate (G)** | Controls the channel through an electric field |
+| **Drain (D)** | Collects carriers flowing through the channel |
+| **Source (S)** | Provides carriers to the channel |
+| **Body / Bulk (B)** | Semiconductor region surrounding the channel |
 
-> **Note:** The model is two-dimensional, so currents are reported per unit out-of-plane depth. Absolute µA values should therefore be interpreted qualitatively, while the observed trends and extracted parameters are used quantitatively within the scope of the model.
+The defining feature of the MOSFET is the insulated gate structure. The gate is separated from the semiconductor by an insulating layer, allowing the gate voltage to control the semiconductor surface without requiring significant steady-state gate current.
 
-<table>
-<tr>
-<td><img src="figures/06_transfer_id_vs_vg.png" alt="Transfer characteristic"><br><sub><b>Transfer characteristic</b> at V<sub>D</sub> = 10 mV: V<sub>T</sub> ≈ 1.2 V</sub></td>
-<td><img src="figures/07_output_id_vs_vd.png" alt="Output characteristics"><br><sub><b>Output characteristics</b> at V<sub>G</sub> = 2, 3, 4 V</sub></td>
-</tr>
-</table>
-
----
-
-## Key Findings
-
-1. **Threshold voltage:** The simulated transfer characteristic gives a threshold voltage of approximately **1.2 V**, consistent with the linear-extrapolation value of approximately **1.18 V** and the analytical reference value of **1.18 V**.
-
-2. **Operating regions:** The simulation reproduces the expected linear, non-linear, and saturation behavior for the investigated gate voltages. The saturation current scales approximately with **(V<sub>G</sub> − V<sub>T</sub>)²**.
-
-3. **Channel formation and pinch-off:** At **V<sub>D</sub> = 5 V**, the inversion layer becomes markedly thinner toward the drain end, illustrating the physical mechanism associated with current saturation. At **V<sub>D</sub> = 0 V**, the channel remains comparatively uniform.
-
-4. **Finite output conductance:** The saturation current continues to increase slightly with drain voltage, resulting in a finite output conductance and corresponding output resistance.
-
----
-
-## Device and Model
+For an **n-channel MOSFET**, applying a sufficiently positive gate voltage attracts electrons toward the semiconductor surface and creates an **inversion channel** between source and drain.
 
 <p align="center">
-  <img src="figures/01_device_geometry_terminals.png" width="600" alt="2D MOSFET device geometry and terminals">
+  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/N-Kanal-MOSFET%20(Schema).svg"
+       width="650"
+       alt="Conceptual cross-section of an n-channel MOSFET">
 </p>
 
-| Item | Value |
-|---|---|
-| Domain | 3 µm × 0.7 µm p-type Si, N<sub>a</sub> = 10¹⁷ cm⁻³ |
-| Source / drain | n⁺ Gaussian box implants, peak N<sub>d</sub> = 10²⁰ cm⁻³, d<sub>j</sub> = (0.2, 0.25) µm |
-| Gate | x = 0.7–2.3 µm, length = 1.6 µm, 30 nm insulator, ε<sub>r</sub> = 4.5 |
-| Contacts | Source and base grounded; drain at V<sub>D</sub>; gate at V<sub>G</sub> |
-| Physics | Fermi–Dirac statistics, Jain–Roulston BGN, SRH recombination |
-| Mesh | Edge mesh 0.08 µm + mapped boundary-layer mesh, growth rate = 1.05 |
-| Study 1 | V<sub>D</sub> = 10 mV, V<sub>G</sub> = 0–4 V (transfer characteristic) |
-| Study 2 | V<sub>D</sub> = 0–5 V at V<sub>G</sub> = 2, 3, 4 V (output characteristics) |
+<p align="center">
+  <sub>Conceptual n-channel MOSFET structure. Source: Wikimedia Commons, CC BY-SA.</sub>
+</p>
 
-### COMSOL Model
-
-The simulations were developed and analyzed using **COMSOL Multiphysics® 6.2 with the Semiconductor Module**. This repository contains the simulation methodology, model parameters, extracted results, figures, COMSOL screenshots, verification scripts, and technical documentation used for the study.
-
-The original COMSOL `.mph` model file is **not included in this repository**. The provided documentation and reproduction guide describe the model setup, simulation workflow, parameters, and analysis used to obtain the reported results.
-
-<table>
-<tr>
-<td><img src="figures/04_doping_signed_Nd-Na.png" alt="Signed doping"><br><sub>Signed doping N<sub>d</sub> − N<sub>a</sub></sub></td>
-<td><img src="figures/05_doping_net_pn_log.png" alt="Net doping p/n"><br><sub>Net doping: p-type / n-type, logarithmic scale</sub></td>
-</tr>
-</table>
-
-Full parameter list: [`data/simulation_parameters.csv`](data/simulation_parameters.csv)
-
-Step-by-step COMSOL reconstruction instructions: [`docs/reproduce_in_comsol.md`](docs/reproduce_in_comsol.md)
+> The conceptual illustration above is used to introduce MOSFET structure. The device investigated in this repository is the independently configured 2D COMSOL simulation shown in the project figures below.
 
 ---
 
-## Repository Structure
+# 3. How an n-Channel MOSFET Works
+
+The operation of an n-channel MOSFET can be understood through the gate voltage.
+
+### V<sub>G</sub> below threshold
+
+When the gate voltage is insufficient to create a strong inversion layer, a continuous conducting channel does not form between the source and drain.
+
+### V<sub>G</sub> above threshold
+
+As the gate voltage increases beyond the threshold voltage, electrons are attracted toward the semiconductor surface and an inversion channel develops.
+
+The resulting channel provides a path for current between the source and drain.
+
+### Increasing V<sub>D</sub>
+
+As the drain voltage increases, the potential along the channel is no longer uniform. The inversion layer gradually becomes thinner toward the drain.
+
+At sufficiently high drain voltage, the channel approaches **pinch-off** near the drain. Beyond this condition, the drain current becomes much less sensitive to drain voltage, producing the characteristic saturation behavior.
+
+This project investigates these physical effects directly through the simulated **carrier concentration and electrostatic potential distributions** rather than relying only on circuit-level equations.
+
+---
+
+# 4. Why MOSFET Characterization Matters
+
+MOSFET characterization is important because the electrical behavior of the device determines how effectively it can function in real circuits.
+
+Important parameters include:
+
+### Threshold Voltage — V<sub>T</sub>
+
+The threshold voltage represents the approximate gate voltage required to establish strong inversion and enable significant channel conduction.
+
+It affects:
+
+- Switching behavior
+- Logic voltage levels
+- Power consumption
+- Biasing
+- Device operating point
+
+### Transconductance — g<sub>m</sub>
+
+Transconductance describes how strongly the drain current responds to changes in gate voltage.
+
+A higher g<sub>m</sub> generally corresponds to stronger gate control over drain current and is particularly important in amplifier design.
+
+### Output Conductance — g<sub>d</sub>
+
+Output conductance describes the dependence of drain current on drain voltage in a particular operating region.
+
+It provides insight into non-ideal saturation behavior.
+
+### Output Resistance — r<sub>d</sub>
+
+Output resistance is approximately the inverse of output conductance:
+
+r<sub>d</sub> ≈ 1 / g<sub>d</sub>
+
+It is an important parameter for understanding the voltage gain and output behavior of transistor-based circuits.
+
+### Intrinsic Gain
+
+The ratio
+
+g<sub>m</sub> / g<sub>d</sub>
+
+provides an indication of the transistor's intrinsic voltage-gain capability.
+
+---
+
+# 5. Project Objective
+
+The objective of this project is to perform a detailed **two-dimensional semiconductor device simulation of an n-channel MOSFET** and connect the physical device behavior to its electrical characteristics.
+
+The study focuses on:
+
+- Modeling the MOSFET device structure
+- Defining realistic semiconductor doping regions
+- Solving the semiconductor electrostatic and carrier-transport problem
+- Investigating threshold-voltage behavior
+- Obtaining transfer characteristics
+- Obtaining drain-current versus drain-voltage characteristics
+- Identifying linear, non-linear, and saturation regions
+- Visualizing channel formation
+- Studying pinch-off near the drain
+- Extracting g<sub>m</sub>, g<sub>d</sub>, and r<sub>d</sub>
+- Estimating intrinsic gain
+- Independently verifying derived quantities using Python
+
+---
+
+# 6. My Approach
+
+I approached this project by focusing on **understanding the physical reason behind each simulated result rather than simply reproducing a curve**.
+
+The workflow was structured around the relationship:
 
 ```text
-.
-├── README.md
-├── LICENSE
-├── CITATION.cff
-│
-├── report/
-│   ├── MOSFET_report.pdf
-│   └── MOSFET_report.docx
-│
-├── figures/
-│   ├── 01_device_geometry_terminals.png
-│   ├── 02_boundary_numbers.png
-│   ├── 03_doping_model2_donor.png
-│   ├── 04_doping_signed_Nd-Na.png
-│   ├── 05_doping_net_pn_log.png
-│   ├── 06_transfer_id_vs_vg.png
-│   ├── 07_output_id_vs_vd.png
-│   └── 08_electron_conc_and_potential.png
-│
-├── comsol_screenshots/
-│   ├── COMSOL model and setup screenshots
-│   └── simulation result screenshots
-│
-├── data/
-│   ├── key_results.csv
-│   └── simulation_parameters.csv
-│
-├── docs/
-│   └── reproduce_in_comsol.md
-│
-└── scripts/
-    └── verify_calculations.py
+Device Structure
+       ↓
+Material Properties
+       ↓
+Doping Profiles
+       ↓
+Electrical Boundary Conditions
+       ↓
+Mesh Configuration
+       ↓
+Semiconductor Physics
+       ↓
+DC Simulation
+       ↓
+Carrier Concentration & Potential
+       ↓
+I–V Characteristics
+       ↓
+Parameter Extraction
+       ↓
+Independent Verification
