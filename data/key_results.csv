@@ -1,0 +1,14 @@
+quantity,value,unit,conditions,source
+threshold_voltage_simulated,1.2,V,Vd=10 mV,Fig. transfer curve (graph-read)
+threshold_voltage_analytical,1.18,V,Eq. (1) COMSOL reference model,COMSOL Application Library
+saturation_current,25,uA,Vg=2 V,graph-read
+saturation_current,137-142,uA,Vg=3 V,graph-read
+saturation_current,347-369,uA,Vg=4 V,graph-read
+output_conductance_nonlinear,91.68,uS,"Vg=4 V, Vd=1-2 V",computed from 255.09 and 346.77 uA
+output_resistance_nonlinear,10.9,kOhm,"Vg=4 V, Vd=1-2 V",computed
+output_conductance_saturation,7,uS,"Vg=4 V, Vd=2-5 V",computed
+output_resistance_saturation,135,kOhm,"Vg=4 V, Vd=2-5 V",computed
+transconductance_linear,1.25,uS,Vd=10 mV,slope of transfer curve
+transconductance_saturation,227,uS,"Vd=5 V, Vg=3-4 V",computed
+intrinsic_gain_gm_over_gd,~30,-,saturation,computed
+square_law_constant_K,84,uA/V^2,mean of Vg=2/3/4 V,2*Id_sat/(Vg-VT)^2

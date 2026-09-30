@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "DC Characteristics of an n-Channel MOSFET: Two-Dimensional Device Simulation in COMSOL Multiphysics 6.2"
+authors:
+  - family-names: "P"
+    given-names: "Rishi"
+version: 1.0.0
+date-released: 2026-09-30
+license: MIT
+keywords:
+  - MOSFET
+  - COMSOL Multiphysics
+  - semiconductor device simulation
+  - threshold voltage
+  - pinch-off

@@ -1,0 +1,27 @@
+group,parameter,value,unit
+geometry,substrate_width,3.0,um
+geometry,substrate_thickness,0.7,um
+geometry,gate_length,1.6,um
+geometry,source_contact_x,0-0.5,um
+geometry,gate_contact_x,0.7-2.3,um
+geometry,drain_contact_x,2.5-3.0,um
+doping,substrate_acceptor_Na,1e17,cm^-3
+doping,implant_donor_peak_Nd,1e20,cm^-3
+doping,source_box_origin,"(0, 0.6)",um
+doping,drain_box_origin,"(2.4, 0.6)",um
+doping,box_width_W,0.6,um
+doping,box_depth_D,0.1,um
+doping,junction_length_dj_xy,"(0.2, 0.25)",um
+gate,insulator_permittivity,4.5,-
+gate,insulator_thickness,30,nm
+physics,carrier_statistics,Fermi-Dirac,-
+physics,band_gap_narrowing,Jain-Roulston,-
+physics,recombination,Shockley-Read-Hall (default),-
+mesh,max_growth_rate,1.05,-
+mesh,edge_max_element_size,0.08,um
+mesh,mapped_distribution_elements,10,-
+mesh,mapped_distribution_ratio,10,-
+study1,Vd,0.01,V
+study1,Vg_sweep,"range(0,0.2,1.4), 2, 3, 4",V
+study2,Vd_sweep,0-5,V
+study2,Vg_values,"2, 3, 4",V
