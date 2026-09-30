@@ -11,11 +11,11 @@
 <p align="center">
   <img src="figures/08_electron_conc_and_potential.png"
        width="850"
-       alt="Electron concentration and potential distribution in the simulated MOSFET">
+       alt="Electron concentration and electrostatic potential distribution in the simulated MOSFET">
 </p>
 
 <p align="center">
-  <b>2D MOSFET simulation showing carrier concentration and electrostatic potential under different drain-bias conditions.</b>
+  <b>Two-dimensional semiconductor simulation of an n-channel MOSFET showing carrier concentration and electrostatic potential.</b>
 </p>
 
 ---
@@ -24,11 +24,22 @@
 
 Transistors are the fundamental active devices behind modern electronics. They enable **switching, amplification, signal processing, memory, sensing, and computation**, forming the basis of everything from microcontrollers and communication systems to CPUs, GPUs, and embedded hardware.
 
-Among the different transistor families, the **MOSFET (Metal–Oxide–Semiconductor Field-Effect Transistor)** is one of the most important devices in modern semiconductor technology. Its ability to control current through an electric field makes it highly suitable for both digital switching and analog amplification.
+Among the different transistor families, the **MOSFET (Metal–Oxide–Semiconductor Field-Effect Transistor)** is one of the most important devices in modern semiconductor technology. Its ability to control current through an electric field makes it suitable for both digital switching and analog amplification.
 
-This project investigates the **DC characteristics of a two-dimensional n-channel MOSFET** using COMSOL Multiphysics® 6.2 and the Semiconductor Module. Rather than treating the device as a simple circuit element, the study examines how **doping, electric potential, carrier concentration, gate bias, drain bias, channel formation, and pinch-off** interact to produce the observed electrical characteristics.
+This project investigates the **DC characteristics of a two-dimensional n-channel MOSFET** using COMSOL Multiphysics® 6.2 and the Semiconductor Module.
 
-The simulation extracts the **threshold voltage**, evaluates the **transfer and output characteristics**, visualizes **channel formation and pinch-off**, and derives important **small-signal parameters** such as transconductance, output conductance, output resistance, and intrinsic gain.
+Rather than treating the MOSFET only as a circuit-level component, the study examines the relationship between:
+
+- Semiconductor doping
+- Electric potential
+- Carrier concentration
+- Gate voltage
+- Drain voltage
+- Channel formation
+- Pinch-off
+- Drain current
+
+The simulation is used to obtain the **transfer and output characteristics**, estimate the **threshold voltage**, visualize semiconductor behavior, and extract important small-signal parameters including **transconductance, output conductance, output resistance, and intrinsic gain**.
 
 ---
 
@@ -36,22 +47,32 @@ The simulation extracts the **threshold voltage**, evaluates the **transfer and 
 
 A **transistor** is a semiconductor device used primarily to control the flow of electrical current.
 
-At a fundamental level, a transistor provides a way for a relatively small electrical signal to control a larger current or voltage. This makes transistors useful in two fundamental roles:
+At a fundamental level, a transistor allows an electrical signal to control another electrical quantity. This makes transistors useful in two major operating roles:
 
-- **Switching** — turning current flow ON and OFF
-- **Amplification** — controlling current to produce a larger signal response
+- **Switching** — controlling whether current flows
+- **Amplification** — producing a larger signal response from a smaller controlling signal
 
-A transistor operates through the controlled movement of charge carriers inside a semiconductor. The device structure, doping profile, electric fields, and applied voltages determine how those carriers move.
+The operation of a transistor depends on the movement of charge carriers inside a semiconductor. The device geometry, doping concentration, electric fields, and applied voltages determine how those carriers behave.
 
-In modern electronics, billions of transistors can be integrated onto a single semiconductor chip. Understanding transistor physics therefore provides the foundation for understanding **digital logic, processors, memory, analog circuits, embedded systems, and integrated circuits**.
+Modern integrated circuits contain extremely large numbers of transistors working together to perform computation, memory storage, signal processing, communication, and control.
+
+Understanding transistor physics therefore provides a foundation for understanding:
+
+- Digital logic
+- Analog circuits
+- Microprocessors
+- Memory
+- Embedded systems
+- Communication circuits
+- Integrated circuits
 
 ---
 
 # 2. From Transistor to MOSFET
 
-A **MOSFET** is a field-effect transistor in which the current flowing between the **source** and **drain** terminals is controlled primarily by the electric field produced by the **gate**.
+A **MOSFET (Metal–Oxide–Semiconductor Field-Effect Transistor)** is a field-effect transistor in which the current flowing between the **source** and **drain** is controlled primarily by the electric field generated by the **gate**.
 
-A typical MOSFET has four terminals:
+A MOSFET has four terminals:
 
 | Terminal | Function |
 |---|---|
@@ -60,93 +81,129 @@ A typical MOSFET has four terminals:
 | **Source (S)** | Provides carriers to the channel |
 | **Body / Bulk (B)** | Semiconductor region surrounding the channel |
 
-The defining feature of the MOSFET is the insulated gate structure. The gate is separated from the semiconductor by an insulating layer, allowing the gate voltage to control the semiconductor surface without requiring significant steady-state gate current.
+The gate is separated from the semiconductor by an insulating layer. This allows the gate voltage to control the semiconductor surface without requiring significant steady-state gate current.
 
-For an **n-channel MOSFET**, applying a sufficiently positive gate voltage attracts electrons toward the semiconductor surface and creates an **inversion channel** between source and drain.
+For an **n-channel MOSFET**, applying a sufficiently positive gate voltage attracts electrons toward the semiconductor surface. Once the gate voltage becomes sufficiently high, an inversion region develops between source and drain, forming a conducting n-type channel.
 
 <p align="center">
-  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/N-Kanal-MOSFET%20(Schema).svg"
-       width="650"
+  <img src="figures/mosfet_structure_clean.png"
+       width="850"
        alt="Conceptual cross-section of an n-channel MOSFET">
 </p>
 
 <p align="center">
-  <sub>Conceptual n-channel MOSFET structure. Source: Wikimedia Commons, CC BY-SA.</sub>
+  <b>Conceptual structure of an n-channel MOSFET showing the source, gate, drain, body, oxide, and induced channel.</b>
 </p>
 
-> The conceptual illustration above is used to introduce MOSFET structure. The device investigated in this repository is the independently configured 2D COMSOL simulation shown in the project figures below.
+> The conceptual illustration above introduces the physical structure and operation of an n-channel MOSFET. The device investigated in this repository is the independently configured two-dimensional COMSOL simulation described in the following sections.
 
 ---
 
 # 3. How an n-Channel MOSFET Works
 
-The operation of an n-channel MOSFET can be understood through the gate voltage.
+The operation of an n-channel MOSFET can be understood primarily through the relationship between **gate voltage, channel formation, and drain voltage**.
 
-### V<sub>G</sub> below threshold
+## 3.1 Gate Voltage Below Threshold
 
-When the gate voltage is insufficient to create a strong inversion layer, a continuous conducting channel does not form between the source and drain.
+When the gate voltage is insufficient to create strong inversion, a continuous conducting channel does not form between the source and drain.
 
-### V<sub>G</sub> above threshold
+Consequently, only a relatively small drain current flows under the simulated operating conditions.
 
-As the gate voltage increases beyond the threshold voltage, electrons are attracted toward the semiconductor surface and an inversion channel develops.
+---
 
-The resulting channel provides a path for current between the source and drain.
+## 3.2 Gate Voltage Above Threshold
 
-### Increasing V<sub>D</sub>
+As the gate voltage increases beyond the threshold voltage, electrons are attracted toward the semiconductor surface.
 
-As the drain voltage increases, the potential along the channel is no longer uniform. The inversion layer gradually becomes thinner toward the drain.
+An inversion channel develops between the source and drain, providing a conducting path for electrons.
 
-At sufficiently high drain voltage, the channel approaches **pinch-off** near the drain. Beyond this condition, the drain current becomes much less sensitive to drain voltage, producing the characteristic saturation behavior.
+The drain current therefore increases as the gate voltage is increased.
 
-This project investigates these physical effects directly through the simulated **carrier concentration and electrostatic potential distributions** rather than relying only on circuit-level equations.
+---
+
+## 3.3 Increasing Drain Voltage
+
+When a drain voltage is applied, an electric field develops along the channel.
+
+As the drain voltage increases:
+
+1. The potential becomes non-uniform along the channel.
+2. The inversion layer becomes progressively thinner toward the drain.
+3. The electric field near the drain becomes stronger.
+4. At sufficiently high drain voltage, the channel approaches **pinch-off** near the drain.
+5. The drain current enters a region where its dependence on drain voltage becomes weaker.
+
+This behavior produces the characteristic transition from the **linear region** to the **saturation region** of MOSFET operation.
 
 ---
 
 # 4. Why MOSFET Characterization Matters
 
-MOSFET characterization is important because the electrical behavior of the device determines how effectively it can function in real circuits.
+Characterizing a MOSFET is important because its electrical parameters determine how the device behaves when used inside larger circuits.
 
-Important parameters include:
+The key quantities investigated in this project include the following.
 
-### Threshold Voltage — V<sub>T</sub>
+## Threshold Voltage — V<sub>T</sub>
 
-The threshold voltage represents the approximate gate voltage required to establish strong inversion and enable significant channel conduction.
+The threshold voltage represents the approximate gate voltage at which strong inversion begins to develop.
 
-It affects:
+It influences:
 
 - Switching behavior
-- Logic voltage levels
-- Power consumption
 - Biasing
-- Device operating point
+- Logic operation
+- Operating point
+- Power consumption
 
-### Transconductance — g<sub>m</sub>
+---
 
-Transconductance describes how strongly the drain current responds to changes in gate voltage.
+## Transconductance — g<sub>m</sub>
 
-A higher g<sub>m</sub> generally corresponds to stronger gate control over drain current and is particularly important in amplifier design.
+Transconductance describes the sensitivity of drain current to gate voltage:
 
-### Output Conductance — g<sub>d</sub>
+$$
+g_m = \frac{\partial I_D}{\partial V_G}
+$$
 
-Output conductance describes the dependence of drain current on drain voltage in a particular operating region.
+A larger transconductance indicates stronger control of drain current through the gate voltage.
 
-It provides insight into non-ideal saturation behavior.
+It is particularly important in analog amplifier design.
 
-### Output Resistance — r<sub>d</sub>
+---
+
+## Output Conductance — g<sub>d</sub>
+
+Output conductance describes the sensitivity of drain current to drain voltage:
+
+$$
+g_d = \frac{\partial I_D}{\partial V_D}
+$$
+
+It provides information about the non-ideal dependence of drain current on drain voltage, particularly in the saturation region.
+
+---
+
+## Output Resistance — r<sub>d</sub>
 
 Output resistance is approximately the inverse of output conductance:
 
-r<sub>d</sub> ≈ 1 / g<sub>d</sub>
+$$
+r_d \approx \frac{1}{g_d}
+$$
 
-It is an important parameter for understanding the voltage gain and output behavior of transistor-based circuits.
+A higher output resistance corresponds to a smaller variation in drain current for a given change in drain voltage.
 
-### Intrinsic Gain
+---
 
-The ratio
+## Intrinsic Gain
 
-g<sub>m</sub> / g<sub>d</sub>
+A useful small-signal measure of intrinsic voltage-gain capability is:
 
-provides an indication of the transistor's intrinsic voltage-gain capability.
+$$
+A_v \approx \frac{g_m}{g_d}
+$$
+
+This quantity connects the transistor's gate control capability with its output resistance.
 
 ---
 
@@ -157,15 +214,18 @@ The objective of this project is to perform a detailed **two-dimensional semicon
 The study focuses on:
 
 - Modeling the MOSFET device structure
-- Defining realistic semiconductor doping regions
-- Solving the semiconductor electrostatic and carrier-transport problem
+- Defining semiconductor doping regions
+- Applying electrical boundary conditions
+- Solving the semiconductor device equations
 - Investigating threshold-voltage behavior
 - Obtaining transfer characteristics
-- Obtaining drain-current versus drain-voltage characteristics
-- Identifying linear, non-linear, and saturation regions
+- Obtaining output characteristics
+- Identifying linear and saturation behavior
 - Visualizing channel formation
 - Studying pinch-off near the drain
-- Extracting g<sub>m</sub>, g<sub>d</sub>, and r<sub>d</sub>
+- Extracting transconductance
+- Extracting output conductance
+- Calculating output resistance
 - Estimating intrinsic gain
 - Independently verifying derived quantities using Python
 
@@ -173,7 +233,7 @@ The study focuses on:
 
 # 6. My Approach
 
-I approached this project by focusing on **understanding the physical reason behind each simulated result rather than simply reproducing a curve**.
+I approached this project by focusing on **understanding the physical reason behind each simulated result rather than simply reproducing an I–V curve**.
 
 The workflow was structured around the relationship:
 
