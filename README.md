@@ -6,7 +6,6 @@
 
 A finite-element study of a 2D n-channel silicon MOSFET using Fermi–Dirac statistics, Jain–Roulston band-gap narrowing, and Shockley–Read–Hall (SRH) recombination. The project extracts the **threshold voltage**, evaluates the **linear, non-linear, and saturation output characteristics**, visualizes **channel formation and pinch-off**, and derives **small-signal parameters** including transconductance (g<sub>m</sub>), output conductance (g<sub>d</sub>), and output resistance (r<sub>d</sub>).
 
-📄 **Full report:** [`report/MOSFET_report.pdf`](report/MOSFET_report.pdf) (20 pages, also available as [`report/MOSFET_report.docx`](report/MOSFET_report.docx))
 
 <p align="center">
   <img src="figures/08_electron_conc_and_potential.png" width="850" alt="Electron concentration and potential at Vg = 4 V for Vd = 5, 1, 0 V">
