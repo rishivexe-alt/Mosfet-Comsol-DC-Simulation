@@ -218,16 +218,13 @@ The study focuses on:
 - Applying electrical boundary conditions
 - Solving the semiconductor device equations
 - Investigating threshold-voltage behavior
-- Obtaining transfer characteristics
-- Obtaining output characteristics
+- Obtaining transfer & output characteristics
 - Identifying linear and saturation behavior
 - Visualizing channel formation
 - Studying pinch-off near the drain
-- Extracting transconductance
-- Extracting output conductance
+- Extracting transconductance & output conductance
 - Calculating output resistance
 - Estimating intrinsic gain
-- Independently verifying derived quantities using Python
 
 ---
 
