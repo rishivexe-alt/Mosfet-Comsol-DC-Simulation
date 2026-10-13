@@ -227,8 +227,13 @@ The study focuses on:
 - Estimating intrinsic gain
 
 ---
+#6. Author
 
-# 6. My Approach
+**Rishi P.**  
+Electronics & Communication Engineering  
+
+---
+#7. My Approach
 
 I approached this project by focusing on **understanding the physical reason behind each simulated result rather than simply reproducing an I–V curve**.
 
@@ -256,8 +261,3 @@ I–V Characteristics
 Parameter Extraction
        ↓
 Independent Verification
-
-## Author
-
-**Rishi P.**  
-Electronics & Communication Engineering  
