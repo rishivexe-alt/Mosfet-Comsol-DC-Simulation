@@ -256,3 +256,8 @@ I–V Characteristics
 Parameter Extraction
        ↓
 Independent Verification
+
+## Author
+
+**Rishi P.**  
+Electronics & Communication Engineering  
